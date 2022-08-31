@@ -9,7 +9,7 @@ public class Main {
     public static void main (String[] args){
         int n = 0;
         BufferedReader reader = new BufferedReader (new InputStreamReader(System.in));
-        System.out.println("Введите длинну массивов:");
+        System.out.println("Р’РІРµРґРёС‚Рµ РґР»РёРЅРЅСѓ РјР°СЃСЃРёРІРѕРІ:");
         
         try {
              n = Integer.parseInt(reader.readLine());
@@ -24,12 +24,12 @@ public class Main {
         int low = 100;
         int medium =0;
        
-        //Двойной массив
+        //Р”РІРѕР№РЅРѕР№ РјР°СЃСЃРёРІ
         for (int i=0;i < array.length;i++) {
             for (int j=0;j < array[i].length;j++) {
-                //генератор чисел 1
+                //РіРµРЅРµСЂР°С‚РѕСЂ С‡РёСЃРµР» 1
                 int time = (int)(System.currentTimeMillis()%high)%low;
-                //Проверка на одинковые элементы\
+                //РџСЂРѕРІРµСЂРєР° РЅР° РѕРґРёРЅРєРѕРІС‹Рµ СЌР»РµРјРµРЅС‚С‹\
                 for (int a=0;a < array.length;a++) {
                     for (int b = 0; b < array[i].length; b++) {
                         if (array[a][b] != time) {
@@ -41,7 +41,7 @@ public class Main {
                         }
                     }
                 }
-                //Второе рандомное число\
+                //Р’С‚РѕСЂРѕРµ СЂР°РЅРґРѕРјРЅРѕРµ С‡РёСЃР»Рѕ\
                 array[i][j] = time;
                 low++;
                 high=high-low;
@@ -49,7 +49,7 @@ public class Main {
             }
         }
 
-        System.out.println("Массив наполнен сгенерированными числами:");
+        System.out.println("РњР°СЃСЃРёРІ РЅР°РїРѕР»РЅРµРЅ СЃРіРµРЅРµСЂРёСЂРѕРІР°РЅРЅС‹РјРё С‡РёСЃР»Р°РјРё:");
         for (int i=0;i < array.length;i++,System.out.println()) {
             for (int j=0;j < array[i].length;j++) {
                 System.out.print(array[i][j]+" ");
@@ -57,7 +57,7 @@ public class Main {
         }
         System.out.println("...........");
 
-        System.out.println("Массив отсортрован:");
+        System.out.println("РњР°СЃСЃРёРІ РѕС‚СЃРѕСЂС‚СЂРѕРІР°РЅ:");
         for ( int r = 0; r < array.length; ++r ) {
             for ( int c = 0; c < array[r].length; ++c ) {
                 int lastC = c + 1;
@@ -71,9 +71,10 @@ public class Main {
                         ++lastC;
                     }
                     lastC = 0;
-                }
+               }
             }
         }
+
 
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array.length; j++) {
@@ -83,11 +84,11 @@ public class Main {
         }
 
         System.out.println("...........");
-        System.out.println("Максимальное число в массиве:");
+        System.out.println("РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ С‡РёСЃР»Рѕ РІ РјР°СЃСЃРёРІРµ:");
         System.out.println(Arrays.toString(new int[]{array[array.length - 1][array.length - 1]}) );
-        System.out.println("Среднее число в массиве:");
+        System.out.println("РЎСЂРµРґРЅРµРµ С‡РёСЃР»Рѕ РІ РјР°СЃСЃРёРІРµ:");
         System.out.println(Arrays.toString(new int[]{array[medium/2][medium/2]}));
-        System.out.println("Минимальное  число в массиве:");
+        System.out.println("РњРёРЅРёРјР°Р»СЊРЅРѕРµ  С‡РёСЃР»Рѕ РІ РјР°СЃСЃРёРІРµ:");
         System.out.println(Arrays.toString(new int[]{array[0][0]}));
 
 
