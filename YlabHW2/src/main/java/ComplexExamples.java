@@ -37,15 +37,16 @@ public class ComplexExamples {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Person person = (Person) o;
-            return name == person.name;
+            return id == person.getId();
 
         }
 
 
         @Override
         public int hashCode() {
-            return Objects.hash(getId(), getName());
+            return Objects.hash(getId());
         }
+
     }
 
     private static Person[] RAW_DATA = new Person[]{
@@ -107,7 +108,7 @@ public class ComplexExamples {
         System.out.println();
         System.out.println("**************************************************");
         System.out.println();
-        System.out.println("Убрать дубликаты, отсортировать по идентификатору, сгруппировать по имени");
+        System.out.println("Убрать дубликаты, отсортировать по идентификатору, сгруппировать по имени:");
         System.out.println();
 
         /*
@@ -125,47 +126,32 @@ public class ComplexExamples {
                 Value:1
          */
         //task1
-        List<Person> sortPerson = new ArrayList<>(List.of(RAW_DATA))
-                .stream()
-                //.filter(Objects :: nonNull)
-                .distinct()
-                //.sorted(Comparator.comparing(Person :: getId ))
-                .collect(Collectors.toList());
 
-        Map<String, Integer> personList = new ArrayList<>(List.of(RAW_DATA))
-                .stream()
+
+
+        Map<String, Long> personList = Arrays.stream(RAW_DATA)
                 .filter(Objects :: nonNull)
                 .distinct()
-                .sorted(Comparator.comparing(Person :: getName ))
-                .collect(Collectors.toMap(
-                        person -> person.getName(),
-                        value -> Collections.frequency(sortPerson, value.getName() ),
-
-                        (p1, p2) -> p1.equals(p2) ? p2 : p1
-                                    )
-
-                        );
-
-        for (Person person : sortPerson) {
-            System.out.println(person.id + " - " + person.name);
-        }
-
-        System.out.println(personList);
+                .sorted(Comparator.comparing(Person :: getId ))
+                //.collect(Collectors.toList());
+                .collect(groupingBy(Person :: getName,Collectors.counting()));
 
 
 
-        for(Map.Entry<String, Integer> pair : personList.entrySet())
+        for(Map.Entry<String, Long> pair : personList.entrySet())
         {
-            String name = String.valueOf(pair.getKey());
-            System.out.println("Key: " + name);
-            Integer value = pair.getValue();
-            System.out.println("Value: " + value);
+            System.out.println("Key: "+ pair.getKey());
+            System.out.println("Value: "+ pair.getValue());
         }
+
+
+
         /*
         Task2
 
             [3, 4, 2, 7], 10 -> [3, 7] - вывести пару менно в скобках, которые дают сумму - 10
          */
+        System.out.println();
         System.out.println("**************************************************");
         System.out.println("Task 2");
         System.out.println("[3, 4, 2, 7], 10 -> [3, 7] - вывести пару менно в скобках, которые дают сумму - 10 " );
