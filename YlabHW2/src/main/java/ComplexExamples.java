@@ -53,8 +53,8 @@ public class ComplexExamples {
 
     private static Person[] RAW_DATA = new Person[]{
             new Person(0, "Harry"),
-            new Person(0, "Harry"), // дубликат
-            new Person(1, "Harry"), // тёзка
+            new Person(0, "Harry"), // РґСѓР±Р»РёРєР°С‚
+            new Person(1, "Harry"), // С‚С‘Р·РєР°
             new Person(2, "Harry"),
             new Person(3, "Emily"),
             new Person(4, "Jack"),
@@ -110,14 +110,14 @@ public class ComplexExamples {
         System.out.println();
         System.out.println("**************************************************");
         System.out.println();
-        System.out.println("Убрать дубликаты, отсортировать по идентификатору, сгруппировать по имени:");
+        System.out.println("РЈР±СЂР°С‚СЊ РґСѓР±Р»РёРєР°С‚С‹, РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°С‚СЊ РїРѕ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂСѓ, СЃРіСЂСѓРїРїРёСЂРѕРІР°С‚СЊ РїРѕ РёРјРµРЅРё:");
         System.out.println();
 
         /*
         Task1
-            Убрать дубликаты, отсортировать по идентификатору, сгруппировать по имени
+            РЈР±СЂР°С‚СЊ РґСѓР±Р»РёРєР°С‚С‹, РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°С‚СЊ РїРѕ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂСѓ, СЃРіСЂСѓРїРїРёСЂРѕРІР°С‚СЊ РїРѕ РёРјРµРЅРё
 
-            Что должно получиться
+            Р§С‚Рѕ РґРѕР»Р¶РЅРѕ РїРѕР»СѓС‡РёС‚СЊСЃСЏ
                 Key: Amelia
                 Value:4
                 Key: Emily
@@ -151,12 +151,12 @@ public class ComplexExamples {
         /*
         Task2
 
-            [3, 4, 2, 7], 10 -> [3, 7] - вывести пару менно в скобках, которые дают сумму - 10
+            [3, 4, 2, 7], 10 -> [3, 7] - РІС‹РІРµСЃС‚Рё РїР°СЂСѓ РјРµРЅРЅРѕ РІ СЃРєРѕР±РєР°С…, РєРѕС‚РѕСЂС‹Рµ РґР°СЋС‚ СЃСѓРјРјСѓ - 10
          */
         System.out.println();
         System.out.println("**************************************************");
         System.out.println("Task 2");
-        System.out.println("[3, 4, 2, 7], 10 -> [3, 7] - вывести пару менно в скобках, которые дают сумму - 10 " );
+        System.out.println("[3, 4, 2, 7], 10 -> [3, 7] - РІС‹РІРµСЃС‚Рё РїР°СЂСѓ РјРµРЅРЅРѕ РІ СЃРєРѕР±РєР°С…, РєРѕС‚РѕСЂС‹Рµ РґР°СЋС‚ СЃСѓРјРјСѓ - 10 " );
         System.out.println();
         int sum = 10;
         int array [] = { 3, 4, 2, 7};
@@ -170,11 +170,11 @@ public class ComplexExamples {
         System.out.println();
         System.out.println("**************************************************");
         System.out.println("Task 3");
-        System.out.println("Реализовать функцию нечеткого поиска");
+        System.out.println("Р РµР°Р»РёР·РѕРІР°С‚СЊ С„СѓРЅРєС†РёСЋ РЅРµС‡РµС‚РєРѕРіРѕ РїРѕРёСЃРєР°");
         /*
         /*
         Task3
-            Реализовать функцию нечеткого поиска
+            Р РµР°Р»РёР·РѕРІР°С‚СЊ С„СѓРЅРєС†РёСЋ РЅРµС‡РµС‚РєРѕРіРѕ РїРѕРёСЃРєР°
                     fuzzySearch("car", "ca6$$#_rtwheel"); // true
                     fuzzySearch("cwhl", "cartwheel"); // true
                     fuzzySearch("cwhee", "cartwheel"); // true
