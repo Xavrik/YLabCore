@@ -133,7 +133,6 @@ public class ComplexExamples {
                 .filter(Objects :: nonNull)
                 .distinct()
                 .sorted(Comparator.comparing(Person:: getId ))
-                //.collect(Collectors.toList());
                 .collect(groupingBy(Person:: getName,Collectors.counting()));
 
 
@@ -192,11 +191,7 @@ public class ComplexExamples {
         System.out.println("____________________________");
         System.out.println(fuzzySearch("lw", "cartwheel"));// false
 
-
-
     }
-
-
     public static boolean fuzzySearch(String str1, String str2) {
         int sharedCharsCount = 0;
         String subStr2 = str2;
