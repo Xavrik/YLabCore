@@ -3,7 +3,9 @@
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.filtering;
 import static java.util.stream.Collectors.groupingBy;
 
 public class ComplexExamples {
@@ -165,12 +167,14 @@ public class ComplexExamples {
                         .forEach(j -> System.out.println(sum + " -> [" +  array[i] +", " + array[j] + "]"  ))
                 );
 
-
+        System.out.println();
         System.out.println("**************************************************");
+        System.out.println("Task 3");
+        System.out.println("Реализовать функцию нечеткого поиска");
+        /*
         /*
         Task3
             Реализовать функцию нечеткого поиска
-
                     fuzzySearch("car", "ca6$$#_rtwheel"); // true
                     fuzzySearch("cwhl", "cartwheel"); // true
                     fuzzySearch("cwhee", "cartwheel"); // true
@@ -178,11 +182,61 @@ public class ComplexExamples {
                     fuzzySearch("cwheeel", "cartwheel"); // false
                     fuzzySearch("lw", "cartwheel"); // false
          */
+        System.out.println(fuzzySearch("car" , "ca6$$#_rtwheel"));// true
+        System.out.println("____________________________");
+        System.out.println(fuzzySearch("cwhl", "cartwheel"));/// true --
+        System.out.println("____________________________");
+        System.out.println(fuzzySearch("cwhee", "cartwheel"));// true --
+        System.out.println("____________________________");
+        System.out.println(fuzzySearch("cartwheel", "cartwheel"));// true
+        System.out.println("____________________________");
+        System.out.println(fuzzySearch("cwheeel", "cartwheel"));// false
+        System.out.println("____________________________");
+        System.out.println(fuzzySearch("lw", "cartwheel"));// false
+
 
 
     }
 
 
+    public static boolean fuzzySearch(String str1, String str2) {
+        int sharedCharsCount = 0;
+        String subStr2 = str2;
+        int matchedCharIndex = 0;
+        TreeSet<Integer> indexList = new TreeSet<Integer>();
+
+    try{
+        for(int i = 0; i < str1.length(); i++) {
+
+            if(indexList.size() != 0 && indexList.last()   > matchedCharIndex ){
+                matchedCharIndex = indexList.last() + i -1;
+                subStr2 = str2.substring(matchedCharIndex  );
+            }else {
+                subStr2 = str2.substring(matchedCharIndex);
+
+            }
+
+        matchedCharIndex = subStr2.indexOf(str1.charAt(i));
+        indexList.add(matchedCharIndex);
+
+            if ( matchedCharIndex > -1 ) {
+                sharedCharsCount++;
+                     }
+            }
+        }catch (StringIndexOutOfBoundsException e){
+            return false;
+        }
+
+        if(sharedCharsCount == str1.length()){
+            return true;
+        }else  return false;
+    }
+
 
 }
+
+
+
+
+
 
