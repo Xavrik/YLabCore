@@ -3,6 +3,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toList;
 
 public class ComplexExamples {
 
@@ -157,11 +158,50 @@ public class ComplexExamples {
         int sum = 10;
         int array [] = { 3, 4, 2, 7};
 
-        IntStream.range(0, array.length)
-                .forEach(i -> IntStream.range(0, array.length)
-                        .filter(j -> i != j && j != 0 && array[i] + array[j] == sum)
-                        .forEach(j -> System.out.println(sum + " -> [" +  array[i] +", " + array[j] + "]"  ))
-                );
+       // IntStream.range(0, array.length)
+        Arrays.stream(array)
+                .forEach(i -> IntStream.range(0, array.length )
+                        .filter(j ->   array[i] + array[j] == sum )
+                        .forEach(a  -> {
+                            if (array.length > a && array.length > i ){
+                                System.out.println(sum + " -> [" + array[i] + ", " + array[a] + "]");
+
+                            }
+
+                        }
+
+            ) );
+//
+//        IntStream.range(0, array.length)
+//                .forEach(i -> IntStream.range(0, array.length)
+//                        .filter(j -> i != j && j != 0 && array[i] + array[j] == sum)
+////                        .forEach(j -> System.out.println(sum + " -> [" +  array[i] +", " + array[j] + "]"  ))
+//
+//                );
+
+
+
+//       Arrays.stream(array)
+//                .forEach(i -> IntStream.range(0, array.length  )
+//                        .forEach(j ->
+//                        {
+//                            if(j <=args.length && i <= array.length){
+//                                if (array[i] + array[j] == sum )
+//                                    System.out.println(sum + " -> [" + array[i] + ", " + array[j] + "]");
+//                            }
+//
+//                        }
+//                ))
+//       ;
+//        Arrays.stream(array)
+//                        .reduce((first, second) ->
+//                                {
+//                                    if (array[first] + array[second] == sum )
+//                                    System.out.println(sum + " -> [" + array[first] + ", " + array[second] + "]");
+//                                    return second;
+//                                }
+//                                );
+
 
 
         System.out.println("**************************************************");
@@ -181,10 +221,11 @@ public class ComplexExamples {
 //        System.out.println(fuzzySearch("cwhl", "cartwheel"));/// true
 //        System.out.println("____________________________");
 //        System.out.println(fuzzySearch("cwhee", "cartwheel"));// true
+//        System.out.println("____________________________");
 //        System.out.println(fuzzySearch("cartwheel", "cartwheel"));// true
-        System.out.println("____________________________");
-        System.out.println(fuzzySearch("cwheeel", "cartwheel"));// false
-        System.out.println("____________________________");
+//        System.out.println("____________________________");
+//        System.out.println(fuzzySearch("cwheeel", "cartwheel"));// false
+//        System.out.println("____________________________");
 //        System.out.println(fuzzySearch("lw", "cartwheel"));// false
 
 
@@ -194,62 +235,40 @@ public class ComplexExamples {
 
     public static boolean fuzzySearch(String str1, String str2) {
         int sharedCharsCount = 0;
-        boolean v = false;
-
-        String subStr2 ="";
+        String subStr2 = " ";
         int matchedCharIndex = 0;
         TreeSet<Integer> indexList = new TreeSet<Integer>();
-       // StringBuilder sb = new StringBuilder(subStr2);
 
-        for(int i = 0; i < str1.length(); i++) {
-            if(i == 0){
-                subStr2 = str2.substring(i);
+            for(int i = 0; i < str1.length(); i++) {
 
-  //              System.out.println(matchedCharIndex + "on start");
+//                if(indexList.size() != 0 && indexList.last() > matchedCharIndex ){
+//                    matchedCharIndex = indexList.last() + i -1;
+//                    subStr2 = str2.substring(matchedCharIndex  );
+//                }else {
+//                   subStr2 = str2.substring(matchedCharIndex);
+//                }
+                if(indexList.size() == 0){
+                    subStr2 = str2.substring(matchedCharIndex);
 
-            }
-            else{
-                subStr2 = str2.substring(matchedCharIndex  );
-               // sb.deleteCharAt(matchedCharIndex);
+                }else {
+                    matchedCharIndex = indexList.last() + i -1;
+                    subStr2 = str2.substring(matchedCharIndex  );
+                }
 
- //               System.out.println(matchedCharIndex + " on start index");
-            }
+                matchedCharIndex = subStr2.indexOf(str1.charAt(i));
+                indexList.add(matchedCharIndex);
 
-            System.out.println(subStr2 + " - ____________string");
-
-            matchedCharIndex = subStr2.indexOf(str1.charAt(i));
-
-            indexList.add(matchedCharIndex);
-
-            System.out.println(str1.charAt(i)  + " - char");
-            System.out.println(matchedCharIndex  + " - index");
-            System.out.println( sharedCharsCount + " count");
-
-
-
-            if ( matchedCharIndex > -1 ) {
-                sharedCharsCount++;
-
-                System.out.println(indexList.last() + " max");
-
+                if ( matchedCharIndex > -1 ) {
+                    sharedCharsCount++;
+                }
             }
 
-            if(indexList.last()   > matchedCharIndex  + i  )    {
-                v = false;
-            }else v = true;
 
-        }
-
-        System.out.println(" Array______________");
-       for(Object arst : indexList){
-            System.out.println(arst);
-        }
-
-        if(sharedCharsCount == str1.length() && v == true){
+        if(sharedCharsCount == str1.length()){
             return true;
-        }else  return false;
-
-
+        }else {
+            return false;
+        }
     }
 
 
