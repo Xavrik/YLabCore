@@ -1,10 +1,12 @@
 package HW2;
 
+import java.security.KeyPair;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.*;
 
 public class ComplexExamples {
 
@@ -26,7 +28,7 @@ public class ComplexExamples {
             return name;
         }
 
-//        @Override
+        //        @Override
 //        public boolean equals(Object o) {
 //            if (this == o) return true;
 //            if (!(o instanceof Person person)) return false;
@@ -40,7 +42,6 @@ public class ComplexExamples {
             return id == person.getId();
 
         }
-
 
         @Override
         public int hashCode() {
@@ -128,19 +129,16 @@ public class ComplexExamples {
         //task1
 
 
-
         Map<String, Long> personList = Arrays.stream(RAW_DATA)
-                .filter(Objects :: nonNull)
+                .filter(Objects::nonNull)
                 .distinct()
-                .sorted(Comparator.comparing(Person:: getId ))
-                .collect(groupingBy(Person:: getName,Collectors.counting()));
+                .sorted(Comparator.comparing(Person::getId))
+                .collect(groupingBy(Person::getName, Collectors.counting()));
 
 
-
-        for(Map.Entry<String, Long> pair : personList.entrySet())
-        {
-            System.out.println("Key: "+ pair.getKey());
-            System.out.println("Value: "+ pair.getValue());
+        for (Map.Entry<String, Long> pair : personList.entrySet()) {
+            System.out.println("Key: " + pair.getKey());
+            System.out.println("Value: " + pair.getValue());
         }
 
 
@@ -153,16 +151,31 @@ public class ComplexExamples {
         System.out.println();
         System.out.println("**************************************************");
         System.out.println("Task 2");
-        System.out.println("[3, 4, 2, 7], 10 -> [3, 7] - вывести пару менно в скобках, которые дают сумму - 10 " );
+        System.out.println("[3, 4, 2, 7], 10 -> [3, 7] - вывести пару менно в скобках, которые дают сумму - 10 ");
         System.out.println();
         int sum = 10;
-        int array [] = { 3, 4, 2, 7};
+        int array[] = {3, 4, 2, 7};
+        //int array[] = {4, 3, 2, 7};
 
-        IntStream.range(0, array.length)
-                .forEach(i -> IntStream.range(0, array.length)
-                        .filter(j -> i != j && j != 0 && array[i] + array[j] == sum)
-                        .forEach(j -> System.out.println(sum + " -> [" +  array[i] +", " + array[j] + "]"  ))
-                );
+        /*
+        Task2
+
+            [3, 4, 2, 7], 10 -> [3, 7] - вывести пару менно в скобках, которые дают сумму - 10
+         */
+
+
+        Arrays.stream(array)
+                .flatMap(element -> Arrays.stream(array).map(otherElement -> {
+                    if(otherElement + element == sum && element < array.length){
+                        System.out.println(sum + " -> [" +  element +", " + otherElement + "]"  );
+                    }
+                    return otherElement;
+                } ))
+                .min();
+
+
+
+
 
         System.out.println();
         System.out.println("**************************************************");
@@ -181,9 +194,9 @@ public class ComplexExamples {
          */
         System.out.println(fuzzySearch("car" , "ca6$$#_rtwheel"));// true
         System.out.println("____________________________");
-        System.out.println(fuzzySearch("cwhl", "cartwheel"));/// true --
+        System.out.println(fuzzySearch("cwhl", "cartwheel"));/// true
         System.out.println("____________________________");
-        System.out.println(fuzzySearch("cwhee", "cartwheel"));// true --
+        System.out.println(fuzzySearch("cwhee", "cartwheel"));// true
         System.out.println("____________________________");
         System.out.println(fuzzySearch("cartwheel", "cartwheel"));// true
         System.out.println("____________________________");
@@ -192,41 +205,40 @@ public class ComplexExamples {
         System.out.println(fuzzySearch("lw", "cartwheel"));// false
 
     }
+
     public static boolean fuzzySearch(String str1, String str2) {
         int sharedCharsCount = 0;
-        String subStr2 = str2;
+        String subStr2 = " ";
         int matchedCharIndex = 0;
-        TreeSet<Integer> indexList = new TreeSet<Integer>();
+        TreeSet<Integer> indexList = new TreeSet<>();
 
-    try{
-        for(int i = 0; i < str1.length(); i++) {
-
-            if(indexList.size() != 0 && indexList.last()   > matchedCharIndex ){
-                matchedCharIndex = indexList.last() + i -1;
-                subStr2 = str2.substring(matchedCharIndex  );
-            }else {
+        for (int i = 0; i < str1.length(); i++) {
+            if (indexList.size() == 0) {
                 subStr2 = str2.substring(matchedCharIndex);
-
+            } else {
+                matchedCharIndex = indexList.last() + i - 1;
+                subStr2 = str2.substring(matchedCharIndex);
             }
 
-        matchedCharIndex = subStr2.indexOf(str1.charAt(i));
-        indexList.add(matchedCharIndex);
+            matchedCharIndex = subStr2.indexOf(str1.charAt(i));
+            indexList.add(matchedCharIndex);
 
-            if ( matchedCharIndex > -1 ) {
+            if (matchedCharIndex > -1) {
                 sharedCharsCount++;
-                     }
             }
-        }catch (StringIndexOutOfBoundsException e){
-            return false;
         }
 
-        if(sharedCharsCount == str1.length()){
+
+        if (sharedCharsCount == str1.length()) {
             return true;
-        }else  return false;
+        } else {
+            return false;
+        }
     }
 
 
 }
+
 
 
 
